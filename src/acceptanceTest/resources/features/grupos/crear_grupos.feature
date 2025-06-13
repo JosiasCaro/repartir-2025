@@ -35,3 +35,19 @@ Característica: Crear Grupo para repartir gastos
       Cuando el usuario crea un grupo
       Entonces debería visualiza dentro del listado el grupo creado con total '$  0,00'
 
+  Regla: Los grupos no pueden tener el mismo nombre
+
+    Escenario: No se pueden crear grupos con el mismo nombre
+      Dado que el usuario inició Repartir
+      Y se crea el grupo con el nombre 'Vacaciones'
+      Cuando se intenta crear un grupo con el nombre 'Vacaciones'
+      Entonces no se debería crear el grupo
+      Y debería alertar que ya existe el nombre de ese grupo
+
+    Escenario: El número total de grupos no debe aumentar al intentar crear uno duplicado
+      Dado que el usuario inició Repartir
+      Y se crea el grupo con el nombre 'Vacaciones'
+      Y se cuenta la cantidad actual de grupos
+      Cuando se intenta crear un grupo con el nombre 'Vacaciones'
+      Entonces la cantidad de grupos debe seguir siendo la misma
+

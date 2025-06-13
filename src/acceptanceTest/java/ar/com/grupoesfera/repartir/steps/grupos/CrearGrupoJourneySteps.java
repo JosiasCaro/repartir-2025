@@ -3,6 +3,9 @@ package ar.com.grupoesfera.repartir.steps.grupos;
 import ar.com.grupoesfera.repartir.steps.CucumberSteps;
 import ar.com.grupoesfera.repartir.steps.Step;
 
+import io.cucumber.java.es.Entonces;
+import io.cucumber.java.es.Y;
+
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.openqa.selenium.By;
@@ -57,6 +60,20 @@ public class CrearGrupoJourneySteps extends CucumberSteps {
                 ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("app-grupos table tr")));
         assertThat(grupoTR).hasSizeGreaterThan(1);
         return grupoTR;
+    }
+
+    int cantidadGruposInicial;
+
+    @Y("se cuenta la cantidad actual de grupos")
+    public void contarCantidadActualGrupos() {
+        List<WebElement> grupo = obtenerGrupo();
+        cantidadGruposInicial = grupo.size();
+    }
+
+    @Entonces("la cantidad de grupos debe seguir siendo la misma")
+    public void verificarCantidadNoCambio() {
+        List<WebElement> grupo = obtenerGrupo();
+        assertThat(grupo.size()).isEqualTo(cantidadGruposInicial);
     }
 
 }
